@@ -94,6 +94,10 @@ git clone -q "$P" ../clone && (
 
 echo "9. Stop cobra atualização após investigação sem mudar código"
 cp "$SD/state.good.md" "$SD/state.md"
+# Sessão com diretório atual dentro de .git (ex.: inspecionando a pasta do estado): o hook ainda acha o repositório.
+N0=$(grep -c state_ok "$SD/journal.jsonl")
+ev claude '{"hook_event_name":"PostToolUse","tool_name":"Write","tool_use_id":"w3","cwd":"'"$SD"'","tool_input":{"file_path":"'"$SD"'/state.md"}}'
+[ "$(grep -c state_ok "$SD/journal.jsonl")" -gt "$N0" ] && ok "hook funciona com o diretório atual dentro de .git" || bad "hook ignorou evento com cwd dentro de .git"
 ev codex '{"hook_event_name":"PostToolUse","tool_name":"apply_patch","tool_use_id":"p1","cwd":"'"$P"'","tool_input":{"command":"*** Begin Patch\n*** Update File: '"$SD"'/state.md\n*** End Patch"}}'
 for i in $(seq 1 12); do ev codex '{"hook_event_name":"PostToolUse","tool_name":"Read","tool_use_id":"r'$i'","cwd":"'"$P"'","tool_input":{"file_path":"x.py"}}'; done
 S=$(ev codex '{"hook_event_name":"Stop","stop_hook_active":false,"cwd":"'"$P"'"}')

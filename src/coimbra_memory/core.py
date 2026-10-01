@@ -109,8 +109,13 @@ def git(root, *args, env=None):
 
 
 def repo_root(cwd):
-    code, out = run(["git", "rev-parse", "--show-toplevel"], cwd or os.getcwd())
-    return out if code == 0 else None
+    cwd = cwd or os.getcwd()
+    code, out = run(["git", "rev-parse", "--show-toplevel"], cwd)
+    if code == 0:
+        return out
+    # Dentro de .git (ex.: a sessão entrou na pasta do estado) o git não dá a raiz: sobe até ela.
+    m = re.match(r"(.*?)[\\/]\.git(?:[\\/]|$)", cwd)
+    return repo_root(m.group(1)) if m else None
 
 
 def current_branch(root):

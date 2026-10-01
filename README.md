@@ -412,7 +412,7 @@ git for-each-ref --format='%(refname)' refs/coimbra-memory | xargs -n1 git updat
 
 ```bash
 git clone https://github.com/elvertoni/coimbra-memory && cd coimbra-memory
-bash tests/test-interrupcao.sh      # 40 verificações; Linux, WSL, macOS ou Git Bash no Windows
+bash tests/test-interrupcao.sh      # 41 verificações; Linux, WSL, macOS ou Git Bash no Windows
 uvx --from . cmem doctor            # rodar a partir do código-fonte
 ```
 

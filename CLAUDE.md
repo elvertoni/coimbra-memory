@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Comandos
 
 ```bash
-bash tests/test-interrupcao.sh                      # suíte completa (40 verificações); Git Bash no Windows, WSL, Linux, macOS
+bash tests/test-interrupcao.sh                      # suíte completa (41 verificações); Git Bash no Windows, WSL, Linux, macOS
 PYTHONPATH=src python -m coimbra_memory <cmd>       # rodar do código-fonte (é assim que a suíte chama)
 uvx --from . cmem doctor                            # rodar como pacote instalado
 ```
@@ -42,6 +42,6 @@ Só stdlib. **Nunca altera arquivos do projeto do usuário**: o estado fica em `
 - A suíte exporta `CLAUDE_CONFIG_DIR`, `CODEX_HOME`, `XDG_DATA_HOME`, `XDG_CONFIG_HOME`, `CMEM_LAUNCHER` e `CMEM_CLAUDE_CLI=none` para não tocar em dados nem configurações reais. Teste novo deve manter isso.
 - `clean_user()` decide o que é contexto injetado pelo harness; prefixo novo → adicionar lá e no teste.
 - `is_ours()` identifica hooks do cmem pelo comando (`" hook claude"` + `cmem`); mudar o formato do comando quebra `uninstall`.
-- O README cita números (40 verificações, padrões das variáveis `CMEM_*`, 80 linhas, 8 hooks): manter em sincronia.
+- O README cita números (41 verificações, padrões das variáveis `CMEM_*`, 80 linhas, 8 hooks): manter em sincronia.
 
 Documentação e mensagens em português com acentuação correta.
