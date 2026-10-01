@@ -12,6 +12,14 @@ o Codex já sabe: o que você pediu, o que o Claude fez, onde parou e por quê
 
 Sem dependências (Python puro), sem servidor na nuvem, sem alterar nenhum arquivo do seu projeto.
 
+**Por que usar**
+
+- **Funciona depois que o agente caiu.** Não depende de ele "lembrar" de escrever um resumo antes do limite: lê a conversa que o próprio programa já salvou em disco.
+- **Instala uma vez, vale em todos os projetos git.** Nada para configurar por projeto, nada no `git status`.
+- **Troca de verdade entre programas.** Claude Code → Codex → OpenCode → Claude Code, em qualquer ordem, inclusive com o mesmo programa em sessões diferentes.
+- **Não repete o que é perigoso.** Um comando que começou e não terminou (migração, script de dados) aparece marcado para ser verificado antes de rodar de novo.
+- **Privado.** Nada sai do seu computador.
+
 ---
 
 ## Sumário
@@ -193,7 +201,24 @@ O custo: cada ferramenta usada dispara um processo Python rápido.
 
 ## Uso no dia a dia
 
-Você não precisa fazer nada de diferente. Um exemplo real:
+### Em qualquer projeto: nada a configurar
+
+A instalação vale para o computador inteiro. Todo projeto que seja **repositório git** já está coberto; na primeira vez, o estado é criado sozinho dentro de `.git/coimbra-memory/`.
+
+1. Abra o programa **na pasta do projeto** (ou numa subpasta), como sempre.
+2. Trabalhe normalmente.
+3. Quando o limite acabar, abra outro programa **na mesma pasta** e diga *"continue de onde parou"*.
+
+| Condição | Se não for o caso |
+|---|---|
+| O projeto é um repositório git | `git init` na pasta |
+| Os programas rodam no mesmo sistema | Não misture Windows e WSL no mesmo projeto |
+
+Para conferir um projeto, rode `cmem doctor` dentro dele: o final mostra o repositório reconhecido e quantas conversas anteriores a ponte encontrou ali. O `doctor` só lê, não cria nada.
+
+### Um exemplo real
+
+Você não precisa fazer nada de diferente:
 
 1. No Claude Code: *"implemente bloqueio após 5 tentativas de login"*. Antes de rodar a migração, o agente chama `salvar_estado` com a etapa atual e como verificar se a migração terminou.
 2. O limite acaba no meio da migração.
