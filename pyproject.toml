@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "coimbra-memory"
+version = "0.1.0"
+description = "Retoma a tarefa quando o agente de código cai (limite de uso, contexto esgotado, interrupção), entre Claude Code, Codex e OpenCode."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+dependencies = []
+keywords = ["claude-code", "codex", "opencode", "mcp", "agents", "handoff"]
+
+[project.urls]
+Homepage = "https://github.com/elvertoni/coimbra-memory"
+Issues = "https://github.com/elvertoni/coimbra-memory/issues"
+
+[project.scripts]
+cmem = "coimbra_memory.core:entry"
+coimbra-memory = "coimbra_memory.core:entry"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/coimbra_memory"]
